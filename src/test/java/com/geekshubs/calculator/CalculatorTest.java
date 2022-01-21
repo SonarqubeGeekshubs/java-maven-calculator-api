@@ -2,6 +2,7 @@ package com.geekshubs.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CalculatorTest {
@@ -30,10 +31,20 @@ public class CalculatorTest {
         assertEquals(2, result);
     }
 
+    @Test
     public void testDiv() {
         Calculator calculator = new Calculator();
         int result = calculator.div(2, 1);
 
         assertEquals(2, result);
     }
+
+    @Test
+    public void testDivByZero() {
+        Calculator calculator = new Calculator();
+        Assertions.assertThrows(ArithmeticException.class, () -> {
+            calculator.div(2, 0);
+        });
+    }
+
 }

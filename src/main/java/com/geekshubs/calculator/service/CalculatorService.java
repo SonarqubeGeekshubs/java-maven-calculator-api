@@ -16,7 +16,11 @@ public class CalculatorService {
         return new Calculator().mul(i, j);
     }
 
-    public int div(int i, int j) {
-        return new Calculator().div(i, j);
+    public int div(int i, int j) throws ArithmeticException {
+        try {
+            return new Calculator().div(i, j);
+        } catch (ArithmeticException e) {
+            throw new ArithmeticException(e.getMessage());
+        }
     }
 }

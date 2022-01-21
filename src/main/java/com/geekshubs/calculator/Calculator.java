@@ -15,6 +15,9 @@ public class Calculator {
     }
 
     public int div(int i, int j) {
+        if (j == 0) {
+            throw new ArithmeticException("Cannot divide by 0");
+        }
         return i / j;
     }
 
