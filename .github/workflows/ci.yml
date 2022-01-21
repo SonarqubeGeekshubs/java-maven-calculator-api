@@ -34,3 +34,4 @@ jobs:
         with:
           name: test-results
           path: target/surefire-reports/TEST*.xml
+      - uses: codecov/codecov-action@v2
