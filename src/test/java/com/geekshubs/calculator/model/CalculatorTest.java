@@ -2,9 +2,6 @@ package com.geekshubs.calculator.model;
 
 import org.junit.jupiter.api.Test;
 
-import com.geekshubs.calculator.model.Calculator;
-import com.geekshubs.calculator.model.Operation;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTest {
