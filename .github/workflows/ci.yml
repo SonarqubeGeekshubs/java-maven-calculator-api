@@ -16,10 +16,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # Runs a single command using the runners shell
       - name: Set up JDK 1.11
-        uses: actions/setup-java@v2.5.0
+        uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'zulu'
@@ -31,7 +31,7 @@ jobs:
       - name: Integration API Test
         run: mvn verify -Pintegration-test
       - name: Upload test results
-        uses: actions/upload-artifact@v2  # upload test results
+        uses: actions/upload-artifact@v3  # upload test results
         if: success() || failure()        # run this step even if previous step failed
         with:
           name: test-results
