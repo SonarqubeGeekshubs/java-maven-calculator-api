@@ -83,10 +83,10 @@ To run in a different port, `mvn jetty:run -Djetty.port=<Your-Port>`.
 ```yaml
 steps:
   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  - uses: actions/checkout@v2
+  - uses: actions/checkout@v3
   # Runs a single command using the runners shell
   - name: Set up JDK 1.11
-    uses: actions/setup-java@v2.5.0
+    uses: actions/setup-java@v3
     with:
       java-version: '11'
       distribution: 'zulu'

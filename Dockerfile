@@ -1,5 +1,4 @@
 FROM maven:3.8.4-jdk-11
-MAINTAINER ricardogarfe
 
 RUN adduser --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password jetty
 USER jetty
