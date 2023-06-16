@@ -14,17 +14,17 @@ public class CalculatorTest {
     }
 
     @Test
-    public void testSub() {
-        assertEquals(4, new Calculator(12, 8, 12 - 8).getResult());
+    public void testSubstract() {
+        assertEquals(20, new Calculator(25, 5, 25 - 5).getResult());
     }
 
     @Test
-    public void testMul() {
-        assertEquals(88, new Calculator(11, 8, 11 * 8).getResult());
+    public void testMultiply() {
+        assertEquals(10, new Calculator(2, 5, 2 * 5).getResult());
     }
 
     @Test
-    public void testDiv() {
-        assertEquals(1, new Calculator(12, 12, 12 / 12).getResult());
+    public void testDivide() {
+        assertEquals(50, new Calculator(100, 2, 100 / 2).getResult());
     }
 }
