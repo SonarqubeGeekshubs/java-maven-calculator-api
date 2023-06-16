@@ -25,4 +25,14 @@ public class CalculatorTest {
     public void testDivide() {
         assertEquals(50, new Calculator(100, 2, 100 / 2).getResult());
     }
+
+    @Test
+    public void testGetX() {
+        assertEquals(5, new Calculator(5, 1, 1).getX());
+    }
+
+    @Test
+    public void testGetY() {
+        assertEquals(5, new Calculator(1, 5, 1).getY());
+    }
 }
