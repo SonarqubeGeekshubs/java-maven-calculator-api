@@ -2,7 +2,6 @@ package com.geekshubs.calculator.rest;
 
 import com.geekshubs.calculator.Calculator;
 import com.geekshubs.calculator.service.CalculatorService;
-
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
