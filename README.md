@@ -56,7 +56,7 @@ $ ./mvnw clean test
 ### 1.2 Run Integration Test
 
 ```console
-$ mvn clean integration-test
+$ mvn clean verify -Pintegration-test
 ```
 
 ### 1.3  Run Locally
@@ -93,8 +93,10 @@ steps:
       cache: 'maven'
   - name: Compile
     run: mvn compile
-  - name: Test
-    run: mvn verify
+  - name: Unit Test
+    run: mvn test
+  - name: Integration API Test
+    run: mvn verify -Pintegration-test
 ```
 
 ## 3. Containerize Your Web App
