@@ -1,6 +1,7 @@
 package com.geekshubs.calculator.rest;
 
 import com.geekshubs.calculator.Calculator;
+import com.geekshubs.calculator.service.CalculatorService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -23,7 +24,7 @@ public class CalculatorAPI {
     @Path("add")
     @Produces(MediaType.APPLICATION_JSON)
     public Calculator Add(@QueryParam("x") int x, @QueryParam("y") int y) {
-        return new Calculator(x, y, x + y);
+        return new CalculatorService().Add(x, y);
     }
 
     @GET
