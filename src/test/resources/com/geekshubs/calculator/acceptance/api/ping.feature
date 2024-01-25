@@ -1,5 +1,5 @@
 @API
-Feature: Ping check
+Feature: API path check
 
   Scenario: Should have a working ping check
     When I make a GET call on /calculator/api/calculator/ping

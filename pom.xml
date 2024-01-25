@@ -25,8 +25,8 @@
         <apache.httpcomponents.version>4.5.13</apache.httpcomponents.version>
         <jetty.maven.plugin.version>11.0.7</jetty.maven.plugin.version>
         <jersey.version>3.0.3</jersey.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven.resources.plugin.version>3.2.0</maven.resources.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>

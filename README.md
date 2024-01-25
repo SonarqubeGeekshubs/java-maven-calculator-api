@@ -56,7 +56,7 @@ $ ./mvnw clean test
 ### 1.2 Run Integration Test
 
 ```console
-$ mvn clean integration-test
+$ mvn clean verify -Pintegration-test
 ```
 
 ### 1.3  Run Locally
@@ -83,18 +83,20 @@ To run in a different port, `mvn jetty:run -Djetty.port=<Your-Port>`.
 ```yaml
 steps:
   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  - uses: actions/checkout@v2
+  - uses: actions/checkout@v3
   # Runs a single command using the runners shell
   - name: Set up JDK 1.11
-    uses: actions/setup-java@v2.5.0
+    uses: actions/setup-java@v3
     with:
       java-version: '11'
       distribution: 'zulu'
       cache: 'maven'
   - name: Compile
     run: mvn compile
-  - name: Test
-    run: mvn verify
+  - name: Unit Test
+    run: mvn test
+  - name: Integration API Test
+    run: mvn verify -Pintegration-test
 ```
 
 ## 3. Containerize Your Web App
