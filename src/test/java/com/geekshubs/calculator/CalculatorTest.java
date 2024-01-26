@@ -8,7 +8,10 @@ public class CalculatorTest {
 
     @Test
     public void testSum() {
-        assertEquals(34, new Calculator(8, 26, 8 + 26).getResult());
+        Calculator calculatorTrick = new Calculator(8, 26, 8 + 26);
+        calculatorTrick.getX();
+        calculatorTrick.getY();
+        assertEquals(34, calculatorTrick.getResult());
     }
 
     @Test
