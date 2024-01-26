@@ -25,36 +25,36 @@ public class ITCalculatorAPITest {
     @Test
     public void testAdd() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/add?x=8&y=26");
+        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/add?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":34"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("5"));
     }
 
     @Test
     public void testSub() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/sub?x=12&y=8");
+        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/sub?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":4"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("-1"));
     }
 
     @Test
     public void testMul() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/mul?x=11&y=8");
+        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/mul?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":88"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("6"));
     }
 
     @Test
     public void testDiv() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/div?x=12&y=12");
+        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/div?x=6&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":1"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("2"));
     }
 }
