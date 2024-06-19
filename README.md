@@ -114,7 +114,7 @@ $ docker run --rm -p 8080:8080 myjetty
 
 > Explain: --rm means delete the container after stopping it.
 
-Access the web app at http://localhost:8080/api/calculator/ping in browser.
+Access the web app at http://localhost:8080/calculator/api/calculator/ping in browser.
 
 Press Control-C to stop and remove the container.
 
@@ -141,4 +141,4 @@ Run all tests in docker-compose environment:
 $ docker-compose up 
 ```
 
-Access the web app at http://localhost:8080/api/calculator/ping in browser.
+Access the web app at http://localhost:8080/calculator/api/calculator/ping in browser.
