@@ -138,7 +138,7 @@ services:
 Run all tests in docker-compose environment:
 
 ```console
-$ docker-compse up 
+$ docker-compose up 
 ```
 
 Access the web app at http://localhost:8080/api/calculator/ping in browser.
