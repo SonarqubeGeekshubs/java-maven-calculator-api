@@ -2,7 +2,7 @@ variables:
   GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
 
-image: maven:3.8.4-jdk-11
+image: maven:3.9.6-eclipse-temurin-17
 
 stages:
   - build
