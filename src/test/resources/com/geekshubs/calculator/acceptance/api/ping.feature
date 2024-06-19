@@ -6,7 +6,14 @@ Feature: Ping check
     Then I should receive 200 response status code
     And should receive a welcome message
 
-  Scenario: Should receive a sum result
-    When I make a GET call on /calculator/api/calculator/add?x=8&y=8
+  Scenario Outline: Should receive a sum result for
+    When I make a GET call on /calculator/api/calculator/add?x=<first>&y=<second>
     Then I should receive 200 response status code
-    And should receive result 16
+    And should receive result <result>
+
+    Examples:
+      | first | second | result |
+      | -2    | 3      | 1      |
+      | 10    | 15     | 25     |
+      | 99    | -99    | 0      |
+      | -1    | -10    | -11    |
