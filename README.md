@@ -20,6 +20,14 @@ Create a service to wrap those methods
 * Divide: divide two numbers and return result
     * divide by zero should return error message
 
+Create a service to wrap those methods
+
+* Sum: sum two numbers and return result
+* Subtract: subtract two numbers and return result
+* Multiply: multiply two numbers and return result
+* Divide: divide two numbers and return result
+    * divide by zero should return error message
+
 ## System requirements
 
 * JDK-11
