@@ -10,6 +10,7 @@ Create calculator App
 * Subtract: subtract two numbers and return result
 * Multiply: multiply two numbers and return result
 * Divide: divide two numbers and return result
+    * divide by zero should return error message
 
 Create a service to wrap those methods
 
@@ -17,6 +18,15 @@ Create a service to wrap those methods
 * Subtract: subtract two numbers and return result
 * Multiply: multiply two numbers and return result
 * Divide: divide two numbers and return result
+    * divide by zero should return error message
+
+Create a service to wrap those methods
+
+* Sum: sum two numbers and return result
+* Subtract: subtract two numbers and return result
+* Multiply: multiply two numbers and return result
+* Divide: divide two numbers and return result
+    * divide by zero should return error message
 
 Create a REST service to expose those methods with URLs in browser:
 
