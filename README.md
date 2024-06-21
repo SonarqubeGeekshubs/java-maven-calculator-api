@@ -8,6 +8,7 @@ Create calculator App
 * Substract: substract two numbers and return result
 * Multiply: multiply two numbers and return result
 * Divide: divide two numbers and return result
+    * divide by zero should return error message
 
 ## System requirements
 

@@ -2,9 +2,8 @@ package com.geekshubs.calculator;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorTest {
 
@@ -26,5 +25,10 @@ public class CalculatorTest {
     @Test
     public void testDiv() {
         assertEquals(1, new Calculator(12, 12, 12 / 12).getResult());
+    }
+
+    @Test
+    public void testDivByZero() {
+        assertThrows(ArithmeticException.class, () -> new Calculator(12, 0, 12 / 0).getResult());
     }
 }
