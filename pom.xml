@@ -19,9 +19,9 @@
         <maven.compiler.target>17</maven.compiler.target>
         <hamcrest.version>2.2</hamcrest.version>
         <junit.version>5.8.2</junit.version>
-        <cucumber.version>7.0.0</cucumber.version>
+        <cucumber.version>7.6.0</cucumber.version>
         <maven.antrun.version>3.0.0</maven.antrun.version>
-        <junit.platform.version>1.8.2</junit.platform.version>
+        <junit.platform.version>1.9.0</junit.platform.version>
         <apache.httpcomponents.version>4.5.13</apache.httpcomponents.version>
         <jetty.maven.plugin.version>11.0.7</jetty.maven.plugin.version>
         <jersey.version>3.0.3</jersey.version>

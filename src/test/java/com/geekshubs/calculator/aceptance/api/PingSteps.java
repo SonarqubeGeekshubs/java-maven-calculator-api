@@ -8,6 +8,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import com.geekshubs.calculator.configuration.Values;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,12 +34,12 @@ public class PingSteps {
 
     @Then("^should receive a welcome message$")
     public void shouldReceiveAWelcomeMessage() throws Exception {
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("Welcome to Java Maven Calculator Web App!!!"));
+        assertThat(EntityUtils.toString(response.getEntity(), Values.ENCODING), containsString("Welcome to Java Maven Calculator Web App!!!"));
     }
 
-    @Then("^should receive result (\\d+)$")
+    @Then("^should receive result (-?\\d+)$")
     public void shouldReceiveResultCorrect(int result) throws Exception {
-        assertThat(EntityUtils.toString(response.getEntity()), containsString(String.format("\"result\":%d", result)));
+        assertThat(EntityUtils.toString(response.getEntity(), Values.ENCODING), containsString(String.format("\"result\":%d", result)));
     }
 
 }
