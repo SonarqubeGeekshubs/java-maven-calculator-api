@@ -32,12 +32,11 @@ jobs:
         run: mvn compile
       - name: Test
         run: mvn verify
-      - name: Upload test results
-        uses: actions/upload-artifact@v3  # upload test results
-        if: success() || failure()        # run this step even if previous step failed
+      - uses: dorny/test-reporter@v1
         with:
-          name: test-results
-          path: target/surefire-reports/TEST*.xml
+          name: Test Results
+          path: "target/**/TEST*.xml"
+          reporter: java-junit
       - name: Analyze with SonarCloud
         run: mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.organization=sonarqubegeekshubs
         env:
