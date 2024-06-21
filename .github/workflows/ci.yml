@@ -25,9 +25,9 @@ jobs:
       - name: Set up JDK 1.17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temu'
-          cache: 'maven'
+          distribution: "liberica"
+          java-version: "17"
+          cache: "maven"
       - name: Compile
         run: mvn compile
       - name: Test
@@ -35,5 +35,5 @@ jobs:
       - uses: dorny/test-reporter@v1
         with:
           name: Test Results
-          path: 'target/**/TEST*.xml'
+          path: "target/**/TEST*.xml"
           reporter: java-junit
