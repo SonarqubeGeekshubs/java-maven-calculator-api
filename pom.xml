@@ -4,25 +4,76 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.geekshubs.javawebapp</groupId>
     <artifactId>java-maven-calculator-web-app</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>1.1-SNAPSHOT</version>
     <name>Calculator Web</name>
     <description>A Java Maven Calculator Web Application</description>
 
     <properties>
+        <!-- Used to locate the profile specific configuration file. -->
+        <build.profile.id>dev</build.profile.id>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <hamcrest.version>2.2</hamcrest.version>
         <junit.version>5.8.2</junit.version>
+        <apache.httpcomponents.version>4.5.13</apache.httpcomponents.version>
+        <jetty.maven.plugin.version>11.0.7</jetty.maven.plugin.version>
+        <jersey.version>3.0.3</jersey.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
         <maven.resources.plugin.version>3.2.0</maven.resources.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <jacoco.maven.plugin.version>0.8.7</jacoco.maven.plugin.version>
     </properties>
+    <profiles>
+        <profile>
+            <id>all-tests</id>
+            <properties>
+                <build.profile.id>all-tests</build.profile.id>
+                <!-- All tests are run. -->
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+        </profile>
+        <profile>
+            <id>integration-test</id>
+            <properties>
+                <!-- Used to locate the profile specific configuration file. -->
+                <build.profile.id>integration-test</build.profile.id>
+                <!-- Only integration tests are run. -->
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
@@ -33,6 +84,12 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${apache.httpcomponents.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -56,19 +113,76 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.plugin.version}</version>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+              </plugin>        
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.maven.plugin.version}</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/calculator</contextPath>
+                    </webApp>
+                    <stopPort>8079</stopPort>
+                    <stopKey>stop-jetty-for-it</stopKey>
+                    <stopWait>10</stopWait>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>run-integration-test</id>
-                        <phase>integration-test</phase>
+                        <id>start-jetty</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>test</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-jetty</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <!-- Sets the VM argument line used when unit tests are run. -->
+                    <argLine>${surefireArgLine}</argLine>
+                    <!-- Skips unit tests if the value of skip.unit.tests property is true -->
+                    <skipTests>${skip.unit.tests}</skipTests>
+                    <!-- Excludes integration tests when unit tests are run. -->
+                    <excludes>
+                        <exclude>**/IT*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <executions>
+                    <!--
+                        Ensures that both integration-test and verify goals of the Failsafe Maven
+                        plugin are executed.
+                    -->
+                    <execution>
+                        <id>integration-tests</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
                         </goals>
                         <configuration>
-                            <includes>
-                                <include>**/*IT.java</include>
-                            </includes>
+                            <!-- Sets the VM argument line used when integration tests are run. -->
+                            <argLine>${failsafeArgLine}</argLine>
+                            <!--
+                                Skips integration tests if the value of skip.integration.tests property
+                                is true
+                            -->
+                            <skipTests>${skip.integration.tests}</skipTests>
                         </configuration>
                     </execution>
                 </executions>
@@ -78,17 +192,82 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.maven.plugin.version}</version>
                 <executions>
+                    <!--
+                        Prepares the property pointing to the JaCoCo runtime agent which
+                        is passed as VM argument when Maven the Surefire plugin is executed.
+                    -->
                     <execution>
+                        <id>pre-unit-test</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>
+                            <!--
+                                Sets the name of the property containing the settings
+                                for JaCoCo runtime agent.
+                            -->
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
                     </execution>
+
+                    <!--
+                        Ensures that the code coverage report for unit tests is created after
+                        unit tests have been run.
+                    -->
                     <execution>
-                        <id>report</id>
+                        <id>post-unit-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
+                    </execution>
+
+
+                    <!-- The Executions required by unit tests are omitted. -->
+                    <!--
+                        Prepares the property pointing to the JaCoCo runtime agent which
+                        is passed as VM argument when Maven the Failsafe plugin is executed.
+                    -->
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
+                            <!--
+                                Sets the name of the property containing the settings
+                                for JaCoCo runtime agent.
+                            -->
+                            <propertyName>failsafeArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <!--
+                        Ensures that the code coverage report for integration tests after
+                        integration tests have been run.
+                    -->
+                    <execution>
+                        <id>post-integration-test</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

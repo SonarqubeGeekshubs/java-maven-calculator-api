@@ -29,9 +29,11 @@ jobs:
           java-version: "17"
           cache: "maven"
       - name: Compile
-        run: mvn compile
-      - name: Test
-        run: mvn verify
+        run: mvn clean compile
+      - name: Unit Test
+        run: mvn test
+      - name: Integration API Test
+        run: mvn verify -Pintegration-test
       - uses: dorny/test-reporter@v1
         with:
           name: Test Results
