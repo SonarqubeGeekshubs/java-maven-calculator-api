@@ -29,7 +29,7 @@ public class ITCalculatorAPITest {
         HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/add?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("5"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":5"));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ITCalculatorAPITest {
         HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/sub?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("-1"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":-1"));
     }
 
     @Test
@@ -45,15 +45,16 @@ public class ITCalculatorAPITest {
         HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/mul?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("6"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":6"));
     }
 
     @Test
     public void testDiv() throws Exception {
-        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/div?x=6&y=3");
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/div?x=12&y=12");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("2"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":1"));
     }
 
     @Test

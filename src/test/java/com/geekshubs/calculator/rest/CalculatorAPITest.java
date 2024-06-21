@@ -12,7 +12,7 @@ public class CalculatorAPITest {
 
     @Test
     public void testPing() {
-        assertThat(new CalculatorAPI().ping(), containsString("Welcome to Java Maven Calculator Web App!!!"));
+        assertThat(calculatorAPI.ping(), containsString("Welcome to Java Maven Calculator Web App!!!"));
     }
 
     @Test
