@@ -3,6 +3,7 @@ package com.geekshubs.calculator.service;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorServiceTest {
 
@@ -26,5 +27,10 @@ public class CalculatorServiceTest {
     @Test
     public void testDiv() {
         assertEquals(1, calculatorService.Div(12, 12).getResult());
+    }
+
+    @Test
+    public void testDivByZero() {
+        assertThrows(ArithmeticException.class, () -> calculatorService.Div(10, 0).getResult());
     }
 }
