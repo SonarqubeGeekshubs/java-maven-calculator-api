@@ -8,6 +8,7 @@ Create calculator App
 * Substract: substract two numbers and return result
 * Multiply: multiply two numbers and return result
 * Divide: divide two numbers and return result
+    * divide by zero should return error message
 
 ## System requirements
 
@@ -35,7 +36,23 @@ $ ./mvnw clean test
 
 ## 2. Automatically Build and Test
 
-**TODO**
+[Github action ci](.github/workflows/ci.yml) step definition:
+```yaml
+steps:
+  # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  - uses: actions/checkout@v2
+  # Runs a single command using the runners shell
+  - name: Set up JDK 1.11
+    uses: actions/setup-java@v2.5.0
+    with:
+      java-version: '11'
+      distribution: 'zulu'
+      cache: 'maven'
+  - name: Compile
+    run: mvn compile
+  - name: Test
+    run: mvn verify
+```
 
 ## 3. Containerize Your Web App
 
