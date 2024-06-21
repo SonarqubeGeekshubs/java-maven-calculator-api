@@ -130,21 +130,25 @@ Press Control-C to stop and remove the container.
 
 ### 3.3. Run docker-compose environment
 
-Define a service to use repository Docker image:
+Define a service to use repository Docker image and execute all tests:
 
 ```yaml
 version: '3.8'
 services:
   calculator:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    command: >
+      sh -c "mvn verify -Pall-tests"
 ```
 
-Run docker-compose environment:
+Run all tests in docker-compose environment:
 
 ```console
-$ docker-compse up 
+$ docker-compose up 
 ```
 
 Access the web app at http://localhost:8080/api/calculator/ping in browser.

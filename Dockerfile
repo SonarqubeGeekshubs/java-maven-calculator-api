@@ -1,5 +1,4 @@
-FROM maven:3.8.4-jdk-11
-MAINTAINER ricardogarfe
+FROM maven:3.9.6-eclipse-temurin-17
 
 RUN adduser --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password jetty
 USER jetty
