@@ -29,7 +29,7 @@ public class ITCalculatorAPITest {
         HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/add?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":34"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":5"));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ITCalculatorAPITest {
         HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/sub?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":4"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":-1"));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ITCalculatorAPITest {
         HttpGet httpGet = new HttpGet("http://localhost:8080/calculator/api/calculator/mul?x=2&y=3");
         HttpResponse response = httpclient.execute(httpGet);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":88"));
+        assertThat(EntityUtils.toString(response.getEntity()), containsString("\"result\":6"));
     }
 
     @Test
